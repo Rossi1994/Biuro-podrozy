@@ -6,11 +6,13 @@
 
 package biuropodrozy;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Paulina
  */
-public class Wycieczka {
+public class Wycieczka implements Serializable {
     
     private String opis;
     private int cena;
@@ -31,4 +33,14 @@ public class Wycieczka {
     public String getData() { return data; }
     public int getiloscMiejsc() { return iloscMiejsc; }
     public int getDlugosc() { return dlugosc; }
+    
+    public void setOpis(String newOpis) { opis = newOpis; }
+    public void setCena(int newCena) { cena = newCena; }
+    public void setKategoria(String newKategoria) { kategoria = newKategoria; }
+    public void setTransport(String newTransport) { transport = newTransport; }
+    public void setWyzywienie(String newWyzywienie) { wyzywienie = newWyzywienie; }
+    public void setWyjazdz(String newWyjazdz) { wyjazdz = newWyjazdz; }
+    public void setData(String newData) { data = newData; }
+    public void setiloscMiejsc(int newiloscMiejsc) { iloscMiejsc = newiloscMiejsc; }
+    public void setDlugosc(int newDlugosc) { dlugosc = newDlugosc; }
 }
