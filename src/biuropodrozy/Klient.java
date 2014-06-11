@@ -6,11 +6,13 @@
 
 package biuropodrozy;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Paulina
  */
-public class Klient {
+public class Klient implements Serializable{
     
     private String imie;
     private String nazwisko;
