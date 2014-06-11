@@ -12,11 +12,14 @@ package biuropodrozy;
  */
 public class RezerwacjaWindow extends javax.swing.JFrame {
 
+    private Klient daneKlienta;
+    
     /**
      * Creates new form RezerwacjaWindow
      */
     public RezerwacjaWindow() {
         initComponents();
+        daneKlienta = new Klient();
     }
 
     /**
@@ -115,7 +118,10 @@ public class RezerwacjaWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        KlientWindow klientWindow = new KlientWindow(this);
+        klientWindow.daneKlienta = daneKlienta;
+        klientWindow.setVisible(true);
+        setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
@@ -164,4 +170,14 @@ public class RezerwacjaWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JSpinner jSpinner1;
     // End of variables declaration//GEN-END:variables
+
+
+
+
+    public void koniecEdycjiKlienta(boolean ok) {
+        // TODO Obsłużyć koniec klienta
+        setVisible(true);
+        
+    }
+
 }
