@@ -26,11 +26,15 @@ public final class BazaDanych implements Serializable {
     transient private int maxRezerwacjaId;
     
     public void dodajWycieczke(Wycieczka newWycieczka) {
-        // TODO Dodać dodawanie wycieczki
+        newWycieczka.setId(maxWycieczkaId + 1);
+        maxWycieczkaId++;
+        wycieczki.add(newWycieczka);
     }
     
     public void dodajRezerwacje(Rezerwacja newRezerwacja) {
-        // TODO Dodac dodawanie nowej rezerwacji
+        newRezerwacja.setId(maxRezerwacjaId + 1);
+        maxRezerwacjaId++;
+        rezerwacje.add(newRezerwacja);
     }
     
     public void usunWycieczke(Wycieczka delWycieczka) {
