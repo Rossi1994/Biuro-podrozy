@@ -30,11 +30,11 @@ public class WycieczkiWindow extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btnAnuluj = new javax.swing.JButton();
+        btnOk = new javax.swing.JButton();
+        btnedytuj = new javax.swing.JButton();
+        btnusun = new javax.swing.JButton();
+        btnDodaj = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -51,15 +51,35 @@ public class WycieczkiWindow extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jButton1.setText("Anuluj");
+        btnAnuluj.setText("Anuluj");
+        btnAnuluj.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAnulujActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Ok");
+        btnOk.setText("Ok");
+        btnOk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOkActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Edytuj");
+        btnedytuj.setText("Edytuj");
+        btnedytuj.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnedytujActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("Usuń");
+        btnusun.setText("Usuń");
+        btnusun.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnusunActionPerformed(evt);
+            }
+        });
 
-        jButton5.setText("Dodaj");
+        btnDodaj.setText("Dodaj");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -68,15 +88,15 @@ public class WycieczkiWindow extends javax.swing.JFrame {
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 707, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton5)
+                .addComponent(btnDodaj)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton4)
+                .addComponent(btnusun)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton3)
+                .addComponent(btnedytuj)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2)
+                .addComponent(btnOk)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
+                .addComponent(btnAnuluj)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -85,16 +105,32 @@ public class WycieczkiWindow extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4)
-                    .addComponent(jButton5))
+                    .addComponent(btnAnuluj)
+                    .addComponent(btnOk)
+                    .addComponent(btnedytuj)
+                    .addComponent(btnusun)
+                    .addComponent(btnDodaj))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnusunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnusunActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnusunActionPerformed
+
+    private void btnedytujActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnedytujActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnedytujActionPerformed
+
+    private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnOkActionPerformed
+
+    private void btnAnulujActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnulujActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAnulujActionPerformed
 
     /**
      * @param args the command line arguments
@@ -132,11 +168,11 @@ public class WycieczkiWindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JButton btnAnuluj;
+    private javax.swing.JButton btnDodaj;
+    private javax.swing.JButton btnOk;
+    private javax.swing.JButton btnedytuj;
+    private javax.swing.JButton btnusun;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables

@@ -37,17 +37,17 @@ public class WycieczkaWindow extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
-        jTextField8 = new javax.swing.JTextField();
-        jTextField9 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        textOpis = new javax.swing.JTextField();
+        textCena = new javax.swing.JTextField();
+        textHotel = new javax.swing.JTextField();
+        textTransport = new javax.swing.JTextField();
+        textWyzywienie = new javax.swing.JTextField();
+        textWyjazd = new javax.swing.JTextField();
+        textData = new javax.swing.JTextField();
+        textMiejsca = new javax.swing.JTextField();
+        textDlugosc = new javax.swing.JTextField();
+        btnok = new javax.swing.JButton();
+        btnAnuluj = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -69,27 +69,47 @@ public class WycieczkaWindow extends javax.swing.JFrame {
 
         jLabel9.setText("Długość wyjazdu:");
 
-        jTextField1.setText("jTextField1");
+        textOpis.setText("jTextField1");
 
-        jTextField2.setText("jTextField2");
+        textCena.setText("jTextField2");
 
-        jTextField3.setText("jTextField3");
+        textHotel.setText("jTextField3");
 
-        jTextField4.setText("jTextField4");
+        textTransport.setText("jTextField4");
 
-        jTextField5.setText("jTextField5");
+        textWyzywienie.setText("jTextField5");
+        textWyzywienie.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textWyzywienieActionPerformed(evt);
+            }
+        });
 
-        jTextField6.setText("jTextField6");
+        textWyjazd.setText("jTextField6");
+        textWyjazd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textWyjazdActionPerformed(evt);
+            }
+        });
 
-        jTextField7.setText("jTextField7");
+        textData.setText("jTextField7");
 
-        jTextField8.setText("jTextField8");
+        textMiejsca.setText("jTextField8");
 
-        jTextField9.setText("jTextField9");
+        textDlugosc.setText("jTextField9");
+        textDlugosc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textDlugoscActionPerformed(evt);
+            }
+        });
 
-        jButton1.setText("Ok");
+        btnok.setText("Ok");
+        btnok.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnokActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Anuluj");
+        btnAnuluj.setText("Anuluj");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -110,19 +130,19 @@ public class WycieczkaWindow extends javax.swing.JFrame {
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(btnok)
                         .addGap(35, 35, 35)
-                        .addComponent(jButton2))
+                        .addComponent(btnAnuluj))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
-                        .addComponent(jTextField2)
-                        .addComponent(jTextField3)
-                        .addComponent(jTextField4)
-                        .addComponent(jTextField5)
-                        .addComponent(jTextField6)
-                        .addComponent(jTextField7)
-                        .addComponent(jTextField8)
-                        .addComponent(jTextField9)))
+                        .addComponent(textOpis, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
+                        .addComponent(textCena)
+                        .addComponent(textHotel)
+                        .addComponent(textTransport)
+                        .addComponent(textWyzywienie)
+                        .addComponent(textWyjazd)
+                        .addComponent(textData)
+                        .addComponent(textMiejsca)
+                        .addComponent(textDlugosc)))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -131,31 +151,31 @@ public class WycieczkaWindow extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textOpis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textCena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textHotel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textTransport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textWyzywienie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textWyjazd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -163,18 +183,34 @@ public class WycieczkaWindow extends javax.swing.JFrame {
                         .addGap(12, 12, 12)
                         .addComponent(jLabel9))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(textMiejsca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
-                        .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(textDlugosc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(btnok)
+                    .addComponent(btnAnuluj))
                 .addGap(23, 23, 23))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnokActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnokActionPerformed
+
+    private void textWyzywienieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textWyzywienieActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textWyzywienieActionPerformed
+
+    private void textWyjazdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textWyjazdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textWyjazdActionPerformed
+
+    private void textDlugoscActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textDlugoscActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textDlugoscActionPerformed
 
     /**
      * @param args the command line arguments
@@ -212,8 +248,8 @@ public class WycieczkaWindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnAnuluj;
+    private javax.swing.JButton btnok;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -223,14 +259,14 @@ public class WycieczkaWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
+    private javax.swing.JTextField textCena;
+    private javax.swing.JTextField textData;
+    private javax.swing.JTextField textDlugosc;
+    private javax.swing.JTextField textHotel;
+    private javax.swing.JTextField textMiejsca;
+    private javax.swing.JTextField textOpis;
+    private javax.swing.JTextField textTransport;
+    private javax.swing.JTextField textWyjazd;
+    private javax.swing.JTextField textWyzywienie;
     // End of variables declaration//GEN-END:variables
 }
