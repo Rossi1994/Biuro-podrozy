@@ -6,9 +6,11 @@
 
 package biuropodrozy;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -20,13 +22,11 @@ import java.util.Objects;
  */
 public final class BazaDanych implements Serializable {
     
-    public BazaDanych(String sciezka) {
-        try {
-            wczytaj(sciezka);
-        } catch (whatever) {
-            this();
-            zapisz(sciezka);
-        }
+    public BazaDanych() {
+        wycieczki = new ArrayList();
+        rezerwacje = new  ArrayList();
+        maxWycieczkaId = 0;
+        maxRezerwacjaId = 0;
     }
     
     private ArrayList<Wycieczka> wycieczki;
@@ -86,16 +86,17 @@ public final class BazaDanych implements Serializable {
     }
     
     public void zapisz(String sciezka) throws FileNotFoundException, IOException {
-        FileOutputStream fileStream = new FileOutputStream("BazaDanych.bd");
+        FileOutputStream fileStream = new FileOutputStream(sciezka);
         ObjectOutputStream os = new ObjectOutputStream(fileStream);
         os.writeObject(this);
         os.close();
         fileStream.close();
     }
     
-    public void wczytaj(String sciezka) {
-        // TODO Dodac wczytywanie bazy
-        policzMaxId();
+    public static BazaDanych wczytaj(String sciezka) throws IOException, ClassNotFoundException {
+        FileInputStream fileStream = new FileInputStream(sciezka);
+        ObjectInputStream os = new ObjectInputStream(fileStream);
+        return (BazaDanych)os.readObject();
     }
     
     public Wycieczka getWycieczka(int index) { return wycieczki.get(index); }
@@ -103,7 +104,7 @@ public final class BazaDanych implements Serializable {
     public ArrayList<Wycieczka> getWycieczki() { return (ArrayList<Wycieczka>)wycieczki.clone(); }
     public ArrayList<Rezerwacja> getRezerwacje() { return (ArrayList<Rezerwacja>)rezerwacje.clone(); }
     
-    private void policzMaxId() {
+    public void policzMaxId() {
         maxWycieczkaId = -1;
         for (Wycieczka w : wycieczki) {
             if (w.getId() > maxWycieczkaId) maxWycieczkaId = w.getId();

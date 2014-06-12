@@ -15,7 +15,7 @@ import java.io.IOException;
 public class BiuroPodrozy {
 
     private static BazaDanych bazaDanych;
-    private static String sciezkaBazy;
+    private final static String sciezkaBazy = "bazaDanych.bd";
     public static boolean endOfProgram;
     /**
      * @param args the command line arguments
@@ -23,12 +23,13 @@ public class BiuroPodrozy {
     public static void main(String[] args) {
         endOfProgram = false;
         try {
-            bazaDanych = new BazaDanych(sciezkaBazy);
-        } catch (whatever) {
+            bazaDanych = BazaDanych.wczytaj(sciezkaBazy);
+            bazaDanych.policzMaxId();
+        } catch (IOException | ClassNotFoundException e) {
             bazaDanych = new BazaDanych();
             try {
                 bazaDanych.zapisz(sciezkaBazy);
-            } catch (IOException e) {
+            } catch (IOException e2) {
                 endOfProgram = true;
             }
         }
@@ -38,13 +39,11 @@ public class BiuroPodrozy {
             
         }
         
-        bazaDanych.zapisz(sciezkaBazy);
-    }
-    
-    
-    public void exit() {
-        bazaDanych.zapisz(sciezkaBazy);
-        endOfProgram = true;
+        try {
+            bazaDanych.zapisz(sciezkaBazy);
+        } catch (IOException ex) {
+            
+        }
     }
     
 }
