@@ -11,12 +11,31 @@ package biuropodrozy;
  * @author Paulina
  */
 public class WycieczkaWindow extends javax.swing.JFrame {
+    
+    private Wycieczka wycieczka;
+    private WycieczkiWindow sender;
 
     /**
      * Creates new form WycieczkaWindow
      */
     public WycieczkaWindow() {
         initComponents();
+    }
+    
+    public WycieczkaWindow(WycieczkiWindow newSender) {
+        this();
+        sender = newSender;
+        wycieczka = new Wycieczka();
+        zaladujDane();
+        setVisible(true);
+    }
+    
+    public WycieczkaWindow(WycieczkiWindow newSender, Wycieczka newWycieczka) {
+        this();
+        sender = newSender;
+        wycieczka = newWycieczka;
+        zaladujDane();
+        setVisible(true);
     }
 
     /**
@@ -46,10 +65,16 @@ public class WycieczkaWindow extends javax.swing.JFrame {
         textData = new javax.swing.JTextField();
         textMiejsca = new javax.swing.JTextField();
         textDlugosc = new javax.swing.JTextField();
-        btnok = new javax.swing.JButton();
+        btnOk = new javax.swing.JButton();
         btnAnuluj = new javax.swing.JButton();
+        textMiejsce = new javax.swing.JTextField();
+        MiejsceL = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("Edytuj wycieczkę");
+        setAlwaysOnTop(true);
+        setResizable(false);
+        setType(java.awt.Window.Type.POPUP);
 
         jLabel1.setText("Opis:");
 
@@ -102,14 +127,23 @@ public class WycieczkaWindow extends javax.swing.JFrame {
             }
         });
 
-        btnok.setText("Ok");
-        btnok.addActionListener(new java.awt.event.ActionListener() {
+        btnOk.setText("Ok");
+        btnOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnokActionPerformed(evt);
+                btnOkActionPerformed(evt);
             }
         });
 
         btnAnuluj.setText("Anuluj");
+        btnAnuluj.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAnulujActionPerformed(evt);
+            }
+        });
+
+        textMiejsce.setText("jTextField1");
+
+        MiejsceL.setText("Miejsce:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -117,88 +151,97 @@ public class WycieczkaWindow extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel9))
-                .addGap(34, 34, 34)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnok)
-                        .addGap(35, 35, 35)
-                        .addComponent(btnAnuluj))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(textOpis, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
-                        .addComponent(textCena)
-                        .addComponent(textHotel)
-                        .addComponent(textTransport)
-                        .addComponent(textWyzywienie)
-                        .addComponent(textWyjazd)
-                        .addComponent(textData)
-                        .addComponent(textMiejsca)
-                        .addComponent(textDlugosc)))
-                .addContainerGap(26, Short.MAX_VALUE))
+                        .addComponent(MiejsceL)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(textMiejsce, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel9))
+                        .addGap(34, 34, 34)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnOk)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnAnuluj))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(textOpis, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
+                                .addComponent(textCena)
+                                .addComponent(textHotel)
+                                .addComponent(textTransport)
+                                .addComponent(textWyzywienie)
+                                .addComponent(textWyjazd)
+                                .addComponent(textData)
+                                .addComponent(textMiejsca)
+                                .addComponent(textDlugosc)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textMiejsce, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(MiejsceL))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(textOpis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(textCena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(textHotel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(textTransport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(textWyzywienie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(textWyjazd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
                     .addComponent(textData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addGap(12, 12, 12)
-                        .addComponent(jLabel9))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(textMiejsca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addComponent(textDlugosc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                    .addComponent(jLabel8)
+                    .addComponent(textMiejsca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnok)
+                    .addComponent(textDlugosc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnOk)
                     .addComponent(btnAnuluj))
-                .addGap(23, 23, 23))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnokActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnokActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnokActionPerformed
+    private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
+        sender.koniecEdycjiWycieczki(true, wycieczka);
+        dispose();
+    }//GEN-LAST:event_btnOkActionPerformed
 
     private void textWyzywienieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textWyzywienieActionPerformed
         // TODO add your handling code here:
@@ -211,6 +254,11 @@ public class WycieczkaWindow extends javax.swing.JFrame {
     private void textDlugoscActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textDlugoscActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textDlugoscActionPerformed
+
+    private void btnAnulujActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnulujActionPerformed
+        sender.koniecEdycjiWycieczki(false, null);
+        dispose();
+    }//GEN-LAST:event_btnAnulujActionPerformed
 
     /**
      * @param args the command line arguments
@@ -248,8 +296,9 @@ public class WycieczkaWindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel MiejsceL;
     private javax.swing.JButton btnAnuluj;
-    private javax.swing.JButton btnok;
+    private javax.swing.JButton btnOk;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -264,9 +313,43 @@ public class WycieczkaWindow extends javax.swing.JFrame {
     private javax.swing.JTextField textDlugosc;
     private javax.swing.JTextField textHotel;
     private javax.swing.JTextField textMiejsca;
+    private javax.swing.JTextField textMiejsce;
     private javax.swing.JTextField textOpis;
     private javax.swing.JTextField textTransport;
     private javax.swing.JTextField textWyjazd;
     private javax.swing.JTextField textWyzywienie;
     // End of variables declaration//GEN-END:variables
+
+    private void zaladujDane() {
+        textMiejsce.setText(wycieczka.getMiejsce());
+        textOpis.setText(wycieczka.getOpis());
+        textCena.setText(wycieczka.getCena().toString());
+        textHotel.setText(wycieczka.getKategoria());
+        textTransport.setText(wycieczka.getTransport());
+        textWyzywienie.setText(wycieczka.getWyzywienie());
+        textWyjazd.setText(wycieczka.getWyjazdZ());
+        textData.setText(wycieczka.getData());
+        textMiejsca.setText(wycieczka.getIloscMiejsc().toString());
+        textDlugosc.setText(wycieczka.getDlugosc().toString());
+    }
+    
+    private void zapiszDane() {
+        wycieczka.setMiejsce(textMiejsce.getText());
+        wycieczka.setOpis(textOpis.getText());
+        try {
+            wycieczka.setCena(Integer.parseInt(textCena.getText()));
+        } catch (NumberFormatException e) { wycieczka.setCena(0); }
+        wycieczka.setKategoria(textHotel.getText());
+        wycieczka.setTransport(textTransport.getText());
+        wycieczka.setWyzywienie(textWyzywienie.getText());
+        wycieczka.setWyjazdZ(textWyjazd.getText());
+        wycieczka.setData(textData.getText());
+        try {
+            wycieczka.setIloscMiejsc(Integer.parseInt(textMiejsca.getText()));
+        } catch (NumberFormatException e) { wycieczka.setIloscMiejsc(0); }
+        try {
+            wycieczka.setDlugosc(Integer.parseInt(textDlugosc.getText()));
+        } catch (NumberFormatException e) { wycieczka.setDlugosc(0); }
+    }
+
 }

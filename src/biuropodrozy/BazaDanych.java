@@ -53,7 +53,7 @@ public final class BazaDanych implements Serializable {
         edytowanaWycieczka.setKategoria(newWycieczka.getKategoria());
         edytowanaWycieczka.setMiejsce(newWycieczka.getMiejsce());
         edytowanaWycieczka.setOpis(newWycieczka.getOpis());
-        edytowanaWycieczka.setWyjazdz(newWycieczka.getWyjazdz());
+        edytowanaWycieczka.setWyjazdZ(newWycieczka.getWyjazdZ());
         edytowanaWycieczka.setWyzywienie(newWycieczka.getWyzywienie());
         edytowanaWycieczka.setIloscMiejsc(newWycieczka.getIloscMiejsc());
     }
@@ -89,5 +89,24 @@ public final class BazaDanych implements Serializable {
         for (Rezerwacja r : rezerwacje) {
             if (r.getId() > maxRezerwacjaId) maxRezerwacjaId = r.getId();
         }
+    }
+    
+    public Object[][] getModelTabeliWycieczek() {
+        Object[][] data = new Object[wycieczki.size()][10];
+        
+        for (int i = 0; i < wycieczki.size(); i++) {
+            data[i][0] = wycieczki.get(i).getMiejsce();
+            data[i][1] = wycieczki.get(i).getOpis();
+            data[i][2] = wycieczki.get(i).getCena();
+            data[i][3] = wycieczki.get(i).getKategoria();
+            data[i][4] = wycieczki.get(i).getTransport();
+            data[i][5] = wycieczki.get(i).getWyzywienie();
+            data[i][6] = wycieczki.get(i).getWyjazdZ();
+            data[i][7] = wycieczki.get(i).getData();
+            data[i][8] = wycieczki.get(i).getIloscMiejsc();
+            data[i][9] = wycieczki.get(i).getDlugosc();
+        }
+        
+        return data;
     }
 }

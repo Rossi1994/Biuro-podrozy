@@ -18,39 +18,39 @@ public class Wycieczka implements Serializable {
         
     }
     
-    private int id;
+    private Integer id;
     private String miejsce;
     private String opis;
-    private int cena;
+    private Integer cena;
     private String kategoria;
     private String transport;
     private String wyzywienie;
-    private String wyjazdz;
+    private String wyjazdZ;
     private String data;
-    private int iloscMiejsc;
-    private int dlugosc;
+    private Integer iloscMiejsc;
+    private Integer dlugosc;
     
-    public int getId() { return id; }
+    public Integer getId() { return id; }
     public String getMiejsce() { return miejsce; }
     public String getOpis() { return opis; }
-    public int getCena() { return cena; }
+    public Integer getCena() { return cena; }
     public String getKategoria() { return kategoria; }
     public String getTransport() { return transport; }
     public String getWyzywienie() { return wyzywienie; }
-    public String getWyjazdz() { return wyjazdz; }
+    public String getWyjazdZ() { return wyjazdZ; }
     public String getData() { return data; }
-    public int getIloscMiejsc() { return iloscMiejsc; }
-    public int getDlugosc() { return dlugosc; }
+    public Integer getIloscMiejsc() { return iloscMiejsc; }
+    public Integer getDlugosc() { return dlugosc; }
     
-    public void setId(int newId) { id = newId; }
+    public void setId(Integer newId) { id = newId; }
     public void setMiejsce(String newMiejsce) { miejsce = newMiejsce; }
     public void setOpis(String newOpis) { opis = newOpis; }
-    public void setCena(int newCena) { cena = newCena; }
+    public void setCena(Integer newCena) { cena = newCena; }
     public void setKategoria(String newKategoria) { kategoria = newKategoria; }
     public void setTransport(String newTransport) { transport = newTransport; }
     public void setWyzywienie(String newWyzywienie) { wyzywienie = newWyzywienie; }
-    public void setWyjazdz(String newWyjazdz) { wyjazdz = newWyjazdz; }
+    public void setWyjazdZ(String newWyjazdz) { wyjazdZ = newWyjazdz; }
     public void setData(String newData) { data = newData; }
-    public void setIloscMiejsc(int newiloscMiejsc) { iloscMiejsc = newiloscMiejsc; }
-    public void setDlugosc(int newDlugosc) { dlugosc = newDlugosc; }
+    public void setIloscMiejsc(Integer newiloscMiejsc) { iloscMiejsc = newiloscMiejsc; }
+    public void setDlugosc(Integer newDlugosc) { dlugosc = newDlugosc; }
 }

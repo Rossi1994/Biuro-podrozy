@@ -6,6 +6,8 @@
 
 package biuropodrozy;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Paulina
@@ -13,8 +15,8 @@ package biuropodrozy;
 public class RezerwacjaWindow extends javax.swing.JFrame {
 
     private RezerwacjeWindow sender;
-    private Klient daneKlienta;
-    private Wycieczka wybranaWycieczka;
+    private Rezerwacja rezerwacja;
+    int indexRezerwacji;
     private BazaDanych bazaDanych;
     private boolean nowyWpis;
     
@@ -28,19 +30,19 @@ public class RezerwacjaWindow extends javax.swing.JFrame {
     public RezerwacjaWindow(RezerwacjeWindow newSender, BazaDanych newBazaDanych) {
         this();
         sender = newSender;
-        daneKlienta = null;
-        wybranaWycieczka = null;
+        rezerwacja = new Rezerwacja();
         bazaDanych = newBazaDanych;
         nowyWpis = true;
+        wyswietlWszystko();
     }
     
-    public RezerwacjaWindow(RezerwacjeWindow newSender, BazaDanych newBazaDanych, Rezerwacja newRezerwacja) {
+    public RezerwacjaWindow(RezerwacjeWindow newSender, BazaDanych newBazaDanych, int idRezerwacji) {
         sender = newSender;
-        daneKlienta = newRezerwacja.getKlient();
-        wybranaWycieczka = newRezerwacja.getWycieczka();
+        rezerwacja = bazaDanych.getRezerwacja(idRezerwacji);
+        indexRezerwacji = idRezerwacji;
         bazaDanych = newBazaDanych;
-        // TODO Jeszcze coś
         nowyWpis = false;
+        wyswietlWszystko();
     }
 
     /**
@@ -156,7 +158,7 @@ public class RezerwacjaWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnKlientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKlientActionPerformed
-        KlientWindow klientWindow = new KlientWindow(this, daneKlienta);
+        KlientWindow klientWindow = new KlientWindow(this, rezerwacja.getKlient());
         setVisible(false);
     }//GEN-LAST:event_btnKlientActionPerformed
 
@@ -171,6 +173,11 @@ public class RezerwacjaWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAnulujActionPerformed
 
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
+        if (nowyWpis) {
+            bazaDanych.dodajRezerwacje(rezerwacja);
+        } else {
+            bazaDanych.poprawRezerwacje(indexRezerwacji, rezerwacja);
+        }
         sender.koniecEdycjiRezerwacji(true);
     }//GEN-LAST:event_btnOkActionPerformed
 
@@ -221,18 +228,41 @@ public class RezerwacjaWindow extends javax.swing.JFrame {
     private javax.swing.JSpinner spnMiejsca;
     // End of variables declaration//GEN-END:variables
 
+    private void wyswietlWszystko() {
+        wyswietlKlienta();
+        wyswietlWycieczke();
+        wyswietlMiejsca();
+    }
+    
     private void wyswietlKlienta() {
-        lblKlient.setText("Dane klienta: " + daneKlienta.getImie() + " " + daneKlienta.getNazwisko());
+        lblKlient.setText("Dane klienta: " + rezerwacja.getKlient().getImie() + " " + rezerwacja.getKlient().getNazwisko());
     }
     
     private void wyswietlWycieczke() {
-        lblWycieczka.setText("Wycieczka: " + wybranaWycieczka.getMiejsce() + " - " + wybranaWycieczka.getData());
+        lblWycieczka.setText("Wycieczka: " + rezerwacja.getWycieczka().getMiejsce() + " - " + rezerwacja.getWycieczka().getData());
+    }
+    
+    private void wyswietlMiejsca() {
+        int miejsca = obliczMiejsca();
+        lblMiejsca.setText("/" + miejsca);
+        spnMiejsca.setValue(miejsca);
+    }
+    
+    private int obliczMiejsca() {
+        int liczbaZajetychMiejsc = 0;
+        ArrayList<Rezerwacja> rezerwacje = bazaDanych.getRezerwacje();
+        for (Rezerwacja r : rezerwacje) {
+            if (r.getId() != rezerwacja.getId() && r.getWycieczka().getId() == rezerwacja.getWycieczka().getId()) {
+                liczbaZajetychMiejsc += r.getLiczbaMiejsc();
+            }
+        }
+        return rezerwacja.getWycieczka().getIloscMiejsc() - liczbaZajetychMiejsc;
     }
 
 
     public void koniecEdycjiKlienta(boolean ok, Klient newKlient) {
         if (ok) {
-            daneKlienta = newKlient;
+            rezerwacja.setKlient(newKlient);
             wyswietlKlienta();
         }
         setVisible(true);
@@ -240,7 +270,7 @@ public class RezerwacjaWindow extends javax.swing.JFrame {
     
     public void koniecWyboruWycieczki(boolean ok, Wycieczka newWycieczka) {
         if (ok) {
-            wybranaWycieczka = newWycieczka;
+            rezerwacja.setWycieczka(newWycieczka);
             wyswietlWycieczke();
         }
     }

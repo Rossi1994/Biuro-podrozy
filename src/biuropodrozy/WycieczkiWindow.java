@@ -16,6 +16,8 @@ public class WycieczkiWindow extends javax.swing.JFrame {
     private RezerwacjaWindow senderRezerwacja;
     private MenuWindow senderMenu;
     boolean rezerwacja;
+    boolean edycja;
+    int ostatniIndex;
     
     BazaDanych bazaDanych;
     
@@ -29,6 +31,16 @@ public class WycieczkiWindow extends javax.swing.JFrame {
     public WycieczkiWindow(RezerwacjaWindow newSender, BazaDanych newBazaDanych) {
         this();
         rezerwacja = true;
+        bazaDanych = newBazaDanych;
+        
+        zaladujDane();
+        aktualizujPrzyciski();
+        setVisible(true);
+    }
+    
+    public WycieczkiWindow(MenuWindow newSender, BazaDanych newBazaDanych) {
+        this();
+        rezerwacja = false;
         bazaDanych = newBazaDanych;
         
         zaladujDane();
@@ -109,6 +121,11 @@ public class WycieczkiWindow extends javax.swing.JFrame {
         });
 
         btnDodaj.setText("Dodaj");
+        btnDodaj.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDodajActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -146,11 +163,20 @@ public class WycieczkiWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnUsunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsunActionPerformed
-        // TODO add your handling code here:
+        if (tabela.getSelectedRow() >= 0) {
+            bazaDanych.usunWycieczke(tabela.getSelectedRow());
+            zaladujDane();
+            aktualizujPrzyciski();
+        }
     }//GEN-LAST:event_btnUsunActionPerformed
 
     private void btnEdytujActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEdytujActionPerformed
-        // TODO add your handling code here:
+        if (tabela.getSelectedRow() >= 0) {
+            WycieczkaWindow wycieczkaWindow = new WycieczkaWindow(this, bazaDanych.getWycieczka(tabela.getSelectedRow()));
+            ostatniIndex = tabela.getSelectedRow();
+            edycja = true;
+            setVisible(false);
+        }
     }//GEN-LAST:event_btnEdytujActionPerformed
 
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
@@ -178,6 +204,14 @@ public class WycieczkiWindow extends javax.swing.JFrame {
     private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
         aktualizujPrzyciski();
     }//GEN-LAST:event_tabelaMouseClicked
+
+    private void btnDodajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDodajActionPerformed
+        if (tabela.getSelectedRow() >= 0) {
+            WycieczkaWindow wycieczkaWindow = new WycieczkaWindow(this);
+            edycja = false;
+            setVisible(false);
+        }
+    }//GEN-LAST:event_btnDodajActionPerformed
 
     /**
      * @param args the command line arguments
@@ -233,6 +267,16 @@ public class WycieczkiWindow extends javax.swing.JFrame {
         btnUsun.setVisible(!rezerwacja);
         btnEdytuj.setVisible(!rezerwacja);
         btnOk.setEnabled(tabela.getSelectedRow() >= 0);
+    }
+    
+    public void koniecEdycjiWycieczki(boolean ok, Wycieczka newWycieczka) {
+        if (ok) {
+            if (edycja) bazaDanych.poprawWycieczke(ostatniIndex, newWycieczka);
+            else bazaDanych.dodajWycieczke(newWycieczka);
+        }
+        zaladujDane();
+        aktualizujPrzyciski();
+        setVisible(true);
     }
     
 }
