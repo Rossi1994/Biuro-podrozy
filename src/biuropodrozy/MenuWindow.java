@@ -106,7 +106,8 @@ public class MenuWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_btnWycieczkiActionPerformed
 
     private void btnRezerwacjeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRezerwacjeActionPerformed
-        // TODO add your handling code here:
+        RezerwacjeWindow rezerwacjeWindow = new RezerwacjeWindow(this, bazaDanych);
+        setVisible(false);
     }//GEN-LAST:event_btnRezerwacjeActionPerformed
 
     private void btnWyjdzActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnWyjdzActionPerformed

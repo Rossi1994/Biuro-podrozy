@@ -186,11 +186,9 @@ public class RezerwacjeWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_tabelaMouseClicked
 
     private void btnDodajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDodajActionPerformed
-        if (tabela.getSelectedRow() >= 0) {
-            RezerwacjaWindow rezerwacjaWindow = new RezerwacjaWindow(this, bazaDanych);
-            edycja = false;
-            setVisible(false);
-        }
+        RezerwacjaWindow rezerwacjaWindow = new RezerwacjaWindow(this, bazaDanych);
+        edycja = false;
+        setVisible(false);
     }//GEN-LAST:event_btnDodajActionPerformed
 
     /**
