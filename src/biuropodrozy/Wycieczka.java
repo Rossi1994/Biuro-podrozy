@@ -39,7 +39,7 @@ public class Wycieczka implements Serializable {
     public String getWyzywienie() { return wyzywienie; }
     public String getWyjazdz() { return wyjazdz; }
     public String getData() { return data; }
-    public int getiloscMiejsc() { return iloscMiejsc; }
+    public int getIloscMiejsc() { return iloscMiejsc; }
     public int getDlugosc() { return dlugosc; }
     
     public void setId(int newId) { id = newId; }
@@ -51,6 +51,6 @@ public class Wycieczka implements Serializable {
     public void setWyzywienie(String newWyzywienie) { wyzywienie = newWyzywienie; }
     public void setWyjazdz(String newWyjazdz) { wyjazdz = newWyjazdz; }
     public void setData(String newData) { data = newData; }
-    public void setiloscMiejsc(int newiloscMiejsc) { iloscMiejsc = newiloscMiejsc; }
+    public void setIloscMiejsc(int newiloscMiejsc) { iloscMiejsc = newiloscMiejsc; }
     public void setDlugosc(int newDlugosc) { dlugosc = newDlugosc; }
 }

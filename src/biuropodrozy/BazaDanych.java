@@ -45,6 +45,26 @@ public final class BazaDanych implements Serializable {
         // TODO Dodac usuwanie rezerwacji
     }
     
+    public void poprawWycieczke(int index, Wycieczka newWycieczka) {
+        Wycieczka edytowanaWycieczka = wycieczki.get(index);
+        edytowanaWycieczka.setCena(newWycieczka.getCena());
+        edytowanaWycieczka.setData(newWycieczka.getData());
+        edytowanaWycieczka.setDlugosc(newWycieczka.getDlugosc());
+        edytowanaWycieczka.setKategoria(newWycieczka.getKategoria());
+        edytowanaWycieczka.setMiejsce(newWycieczka.getMiejsce());
+        edytowanaWycieczka.setOpis(newWycieczka.getOpis());
+        edytowanaWycieczka.setWyjazdz(newWycieczka.getWyjazdz());
+        edytowanaWycieczka.setWyzywienie(newWycieczka.getWyzywienie());
+        edytowanaWycieczka.setIloscMiejsc(newWycieczka.getIloscMiejsc());
+    }
+    
+    public void poprawRezerwacje(int index, Rezerwacja newRezerwacja) {
+        Rezerwacja edytowanaRezerwacja = rezerwacje.get(index);
+        edytowanaRezerwacja.setKlient(newRezerwacja.getKlient());
+        edytowanaRezerwacja.setLiczbaMiejsc(newRezerwacja.getLiczbaMiejsc());
+        edytowanaRezerwacja.setWycieczka(newRezerwacja.getWycieczka());
+    }
+    
     public void zapisz(String sciezka) {
         // TODO Dodać zapisywanie bazy
     }
