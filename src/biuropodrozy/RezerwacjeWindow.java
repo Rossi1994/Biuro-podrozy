@@ -10,13 +10,30 @@ package biuropodrozy;
  *
  * @author Paulina
  */
+
 public class RezerwacjeWindow extends javax.swing.JFrame {
 
+    private MenuWindow sender;
+    boolean edycja;
+    int ostatniIndex;
+    
+    BazaDanych bazaDanych;
+    
     /**
-     * Creates new form RezerwacjeWindow
+     * Creates new form WycieczkiWindow
      */
     public RezerwacjeWindow() {
         initComponents();
+    }
+    
+    public RezerwacjeWindow(MenuWindow newSender, BazaDanych newBazaDanych) {
+        this();
+        sender = newSender;
+        bazaDanych = newBazaDanych;
+        
+        zaladujDane();
+        aktualizujPrzyciski();
+        setVisible(true);
     }
 
     /**
@@ -29,16 +46,18 @@ public class RezerwacjeWindow extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        tabela = new javax.swing.JTable();
+        btnAnuluj = new javax.swing.JButton();
+        btnOk = new javax.swing.JButton();
+        btnEdytuj = new javax.swing.JButton();
+        btnUsun = new javax.swing.JButton();
+        btnDodaj = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("Wycieczki");
+        setType(java.awt.Window.Type.UTILITY);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -49,52 +68,130 @@ public class RezerwacjeWindow extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tabela.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaMouseClicked(evt);
+            }
+        });
+        tabela.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tabelaKeyPressed(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tabela);
 
-        jButton1.setText("Anuluj");
+        btnAnuluj.setText("Anuluj");
+        btnAnuluj.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAnulujActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Ok");
+        btnOk.setText("Ok");
+        btnOk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOkActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Edytuj");
+        btnEdytuj.setText("Edytuj");
+        btnEdytuj.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEdytujActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("Usuń");
+        btnUsun.setText("Usuń");
+        btnUsun.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUsunActionPerformed(evt);
+            }
+        });
 
-        jButton5.setText("Dodaj");
+        btnDodaj.setText("Dodaj");
+        btnDodaj.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDodajActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 704, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 689, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(btnDodaj)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnUsun)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnEdytuj)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnOk)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnAnuluj)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4)
-                    .addComponent(jButton5))
+                    .addComponent(btnAnuluj)
+                    .addComponent(btnOk)
+                    .addComponent(btnEdytuj)
+                    .addComponent(btnUsun)
+                    .addComponent(btnDodaj))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnUsunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsunActionPerformed
+        if (tabela.getSelectedRow() >= 0) {
+            bazaDanych.usunRezerwacje(tabela.getSelectedRow());
+            zaladujDane();
+            aktualizujPrzyciski();
+        }
+    }//GEN-LAST:event_btnUsunActionPerformed
+
+    private void btnEdytujActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEdytujActionPerformed
+        if (tabela.getSelectedRow() >= 0) {
+            RezerwacjaWindow rezerwacjaWindow = new RezerwacjaWindow(this, bazaDanych, tabela.getSelectedRow());
+            ostatniIndex = tabela.getSelectedRow();
+            edycja = true;
+            setVisible(false);
+        }
+    }//GEN-LAST:event_btnEdytujActionPerformed
+
+    private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
+        sender.koniecEdycjiRezerwacji(true);
+        dispose();
+    }//GEN-LAST:event_btnOkActionPerformed
+
+    private void btnAnulujActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnulujActionPerformed
+        sender.koniecEdycjiRezerwacji(false);
+        dispose();
+    }//GEN-LAST:event_btnAnulujActionPerformed
+
+    private void tabelaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelaKeyPressed
+        aktualizujPrzyciski();
+    }//GEN-LAST:event_tabelaKeyPressed
+
+    private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
+        aktualizujPrzyciski();
+    }//GEN-LAST:event_tabelaMouseClicked
+
+    private void btnDodajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDodajActionPerformed
+        if (tabela.getSelectedRow() >= 0) {
+            RezerwacjaWindow rezerwacjaWindow = new RezerwacjaWindow(this, bazaDanych);
+            edycja = false;
+            setVisible(false);
+        }
+    }//GEN-LAST:event_btnDodajActionPerformed
 
     /**
      * @param args the command line arguments
@@ -132,12 +229,43 @@ public class RezerwacjeWindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JButton btnAnuluj;
+    private javax.swing.JButton btnDodaj;
+    private javax.swing.JButton btnEdytuj;
+    private javax.swing.JButton btnOk;
+    private javax.swing.JButton btnUsun;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables
+
+    private void zaladujDane() {
+        tabela.setModel(new javax.swing.table.DefaultTableModel(
+            bazaDanych.getModelTabeliRezerwacji(),
+            new String [] {
+                "Miejsce", "Data", "Imie", "Nazwisko", "Liczba miejsc"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            @Override
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+    }
+    
+    private void aktualizujPrzyciski() {
+        btnOk.setEnabled(tabela.getSelectedRow() >= 0);
+    }
+    
+    public void koniecEdycjiRezerwacji(boolean ok) {
+        if (ok) {
+            zaladujDane();
+        }
+        aktualizujPrzyciski();
+        setVisible(true);
+    }
+    
 }

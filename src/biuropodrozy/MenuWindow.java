@@ -12,11 +12,17 @@ package biuropodrozy;
  */
 public class MenuWindow extends javax.swing.JFrame {
 
+    BazaDanych bazaDanych;
     /**
      * Creates new form MenuWindow
      */
     public MenuWindow() {
         initComponents();
+    }
+    
+    public MenuWindow(BazaDanych newBazaDanych) {
+        this();
+        bazaDanych = newBazaDanych;
     }
 
     /**
@@ -33,7 +39,9 @@ public class MenuWindow extends javax.swing.JFrame {
         btnWyjdz = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setResizable(false);
+        setType(java.awt.Window.Type.POPUP);
 
         btnWycieczki.setText("Wycieczki");
         btnWycieczki.addActionListener(new java.awt.event.ActionListener() {
@@ -50,6 +58,11 @@ public class MenuWindow extends javax.swing.JFrame {
         });
 
         btnWyjdz.setText("Wyjdź");
+        btnWyjdz.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnWyjdzActionPerformed(evt);
+            }
+        });
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Menu Główne");
@@ -85,12 +98,18 @@ public class MenuWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnWycieczkiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnWycieczkiActionPerformed
-        // TODO add your handling code here:
+        WycieczkiWindow wycieczkiWindow = new WycieczkiWindow(this, bazaDanych);
+        setVisible(false);
     }//GEN-LAST:event_btnWycieczkiActionPerformed
 
     private void btnRezerwacjeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRezerwacjeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnRezerwacjeActionPerformed
+
+    private void btnWyjdzActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnWyjdzActionPerformed
+        BiuroPodrozy.endOfProgram = true;
+        dispose();
+    }//GEN-LAST:event_btnWyjdzActionPerformed
 
     /**
      * @param args the command line arguments
@@ -133,4 +152,13 @@ public class MenuWindow extends javax.swing.JFrame {
     private javax.swing.JButton btnWyjdz;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
+
+    public void koniecEdycjiWycieczek(boolean ok) {
+        setVisible(true);
+    }
+    
+    public void koniecEdycjiRezerwacji(boolean ok) {
+        setVisible(true);
+    }
+
 }

@@ -6,8 +6,13 @@
 
 package biuropodrozy;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  *
@@ -16,7 +21,12 @@ import java.util.ArrayList;
 public final class BazaDanych implements Serializable {
     
     public BazaDanych(String sciezka) {
-        wczytaj(sciezka);
+        try {
+            wczytaj(sciezka);
+        } catch (whatever) {
+            this();
+            zapisz(sciezka);
+        }
     }
     
     private ArrayList<Wycieczka> wycieczki;
@@ -37,12 +47,22 @@ public final class BazaDanych implements Serializable {
         rezerwacje.add(newRezerwacja);
     }
     
-    public void usunWycieczke(Wycieczka delWycieczka) {
-        // TODO Dodac usuwanie wycieczki
+    public void usunWycieczke(Wycieczka delWycieczka) { usunWycieczke(wycieczki.indexOf(delWycieczka)); }
+    
+    public void usunWycieczke(int indexWycieczki) {
+        Wycieczka wycieczka = getWycieczka(indexWycieczki);
+        wycieczki.remove(indexWycieczki);
+        for (Rezerwacja r : rezerwacje) {
+            if (Objects.equals(r.getWycieczka(), wycieczka)) {
+                usunRezerwacje(r);
+            }
+        }
     }
     
-    public void usunRezerwacje(Rezerwacja delRezerwacja) {
-        // TODO Dodac usuwanie rezerwacji
+    public void usunRezerwacje(Rezerwacja delRezerwacja) { usunRezerwacje(rezerwacje.indexOf(delRezerwacja)); }
+    
+    public void usunRezerwacje(int indexRezerwacja) {
+        rezerwacje.remove(indexRezerwacja);
     }
     
     public void poprawWycieczke(int index, Wycieczka newWycieczka) {
@@ -65,8 +85,12 @@ public final class BazaDanych implements Serializable {
         edytowanaRezerwacja.setWycieczka(newRezerwacja.getWycieczka());
     }
     
-    public void zapisz(String sciezka) {
-        // TODO Dodać zapisywanie bazy
+    public void zapisz(String sciezka) throws FileNotFoundException, IOException {
+        FileOutputStream fileStream = new FileOutputStream("BazaDanych.bd");
+        ObjectOutputStream os = new ObjectOutputStream(fileStream);
+        os.writeObject(this);
+        os.close();
+        fileStream.close();
     }
     
     public void wczytaj(String sciezka) {
@@ -105,6 +129,20 @@ public final class BazaDanych implements Serializable {
             data[i][7] = wycieczki.get(i).getData();
             data[i][8] = wycieczki.get(i).getIloscMiejsc();
             data[i][9] = wycieczki.get(i).getDlugosc();
+        }
+        
+        return data;
+    }
+    
+    public Object[][] getModelTabeliRezerwacji() {
+        Object[][] data = new Object[rezerwacje.size()][10];
+        
+        for (int i = 0; i < rezerwacje.size(); i++) {
+            data[i][0] = rezerwacje.get(i).getWycieczka().getMiejsce();
+            data[i][1] = rezerwacje.get(i).getWycieczka().getData();
+            data[i][2] = rezerwacje.get(i).getKlient().getImie();
+            data[i][3] = rezerwacje.get(i).getKlient().getNazwisko();
+            data[i][4] = rezerwacje.get(i).getLiczbaMiejsc();
         }
         
         return data;

@@ -168,7 +168,7 @@ public class RezerwacjaWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_btnWycieczkaActionPerformed
 
     private void btnAnulujActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnulujActionPerformed
-        sender.koniecEdydjiRezerwacji(false);
+        sender.koniecEdycjiRezerwacji(false);
         dispose();
     }//GEN-LAST:event_btnAnulujActionPerformed
 

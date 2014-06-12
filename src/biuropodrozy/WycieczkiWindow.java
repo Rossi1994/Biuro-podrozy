@@ -30,6 +30,7 @@ public class WycieczkiWindow extends javax.swing.JFrame {
     
     public WycieczkiWindow(RezerwacjaWindow newSender, BazaDanych newBazaDanych) {
         this();
+        senderRezerwacja = newSender;
         rezerwacja = true;
         bazaDanych = newBazaDanych;
         
@@ -40,6 +41,7 @@ public class WycieczkiWindow extends javax.swing.JFrame {
     
     public WycieczkiWindow(MenuWindow newSender, BazaDanych newBazaDanych) {
         this();
+        senderMenu = newSender;
         rezerwacja = false;
         bazaDanych = newBazaDanych;
         
@@ -131,7 +133,7 @@ public class WycieczkiWindow extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 709, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 689, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnDodaj)
@@ -259,7 +261,21 @@ public class WycieczkiWindow extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void zaladujDane() {
-        // TODO Wczytac dane do tablicy
+        tabela.setModel(new javax.swing.table.DefaultTableModel(
+            bazaDanych.getModelTabeliWycieczek(),
+            new String [] {
+                "Miejsce", "Opis", "Cena", "Hotel", "Transport", "Wyzywienie", "Wyjazd z", "Data", "Ilość miejsc", "Długość"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            @Override
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
     }
     
     private void aktualizujPrzyciski() {
