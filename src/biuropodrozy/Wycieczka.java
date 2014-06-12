@@ -19,6 +19,7 @@ public class Wycieczka implements Serializable {
     }
     
     private int id;
+    private String miejsce;
     private String opis;
     private int cena;
     private String kategoria;
@@ -30,6 +31,7 @@ public class Wycieczka implements Serializable {
     private int dlugosc;
     
     public int getId() { return id; }
+    public String getMiejsce() { return miejsce; }
     public String getOpis() { return opis; }
     public int getCena() { return cena; }
     public String getKategoria() { return kategoria; }
@@ -41,6 +43,7 @@ public class Wycieczka implements Serializable {
     public int getDlugosc() { return dlugosc; }
     
     public void setId(int newId) { id = newId; }
+    public void setMiejsce(String newMiejsce) { miejsce = newMiejsce; }
     public void setOpis(String newOpis) { opis = newOpis; }
     public void setCena(int newCena) { cena = newCena; }
     public void setKategoria(String newKategoria) { kategoria = newKategoria; }

@@ -10,13 +10,30 @@ package biuropodrozy;
  *
  * @author Paulina
  */
+
 public class WycieczkiWindow extends javax.swing.JFrame {
 
+    private RezerwacjaWindow senderRezerwacja;
+    private MenuWindow senderMenu;
+    boolean rezerwacja;
+    
+    BazaDanych bazaDanych;
+    
     /**
      * Creates new form WycieczkiWindow
      */
     public WycieczkiWindow() {
         initComponents();
+    }
+    
+    public WycieczkiWindow(RezerwacjaWindow newSender, BazaDanych newBazaDanych) {
+        this();
+        rezerwacja = true;
+        bazaDanych = newBazaDanych;
+        
+        zaladujDane();
+        aktualizujPrzyciski();
+        setVisible(true);
     }
 
     /**
@@ -29,16 +46,18 @@ public class WycieczkiWindow extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabela = new javax.swing.JTable();
         btnAnuluj = new javax.swing.JButton();
         btnOk = new javax.swing.JButton();
-        btnedytuj = new javax.swing.JButton();
-        btnusun = new javax.swing.JButton();
+        btnEdytuj = new javax.swing.JButton();
+        btnUsun = new javax.swing.JButton();
         btnDodaj = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("Wycieczki");
+        setType(java.awt.Window.Type.UTILITY);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -49,7 +68,17 @@ public class WycieczkiWindow extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tabela.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaMouseClicked(evt);
+            }
+        });
+        tabela.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tabelaKeyPressed(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tabela);
 
         btnAnuluj.setText("Anuluj");
         btnAnuluj.addActionListener(new java.awt.event.ActionListener() {
@@ -65,17 +94,17 @@ public class WycieczkiWindow extends javax.swing.JFrame {
             }
         });
 
-        btnedytuj.setText("Edytuj");
-        btnedytuj.addActionListener(new java.awt.event.ActionListener() {
+        btnEdytuj.setText("Edytuj");
+        btnEdytuj.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnedytujActionPerformed(evt);
+                btnEdytujActionPerformed(evt);
             }
         });
 
-        btnusun.setText("Usuń");
-        btnusun.addActionListener(new java.awt.event.ActionListener() {
+        btnUsun.setText("Usuń");
+        btnUsun.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnusunActionPerformed(evt);
+                btnUsunActionPerformed(evt);
             }
         });
 
@@ -85,14 +114,14 @@ public class WycieczkiWindow extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 707, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 709, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnDodaj)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnusun)
+                .addComponent(btnUsun)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnedytuj)
+                .addComponent(btnEdytuj)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnOk)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -102,13 +131,13 @@ public class WycieczkiWindow extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAnuluj)
                     .addComponent(btnOk)
-                    .addComponent(btnedytuj)
-                    .addComponent(btnusun)
+                    .addComponent(btnEdytuj)
+                    .addComponent(btnUsun)
                     .addComponent(btnDodaj))
                 .addContainerGap())
         );
@@ -116,21 +145,39 @@ public class WycieczkiWindow extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnusunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnusunActionPerformed
+    private void btnUsunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsunActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnusunActionPerformed
+    }//GEN-LAST:event_btnUsunActionPerformed
 
-    private void btnedytujActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnedytujActionPerformed
+    private void btnEdytujActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEdytujActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnedytujActionPerformed
+    }//GEN-LAST:event_btnEdytujActionPerformed
 
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
-        // TODO add your handling code here:
+        if (rezerwacja) {
+            senderRezerwacja.koniecWyboruWycieczki(true, bazaDanych.getWycieczka(tabela.getSelectedRow()));
+        } else {
+            senderMenu.koniecEdycjiWycieczek(true); // TODO Dodac funkcje w MenuWindow
+        }
+        dispose();
     }//GEN-LAST:event_btnOkActionPerformed
 
     private void btnAnulujActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnulujActionPerformed
-        // TODO add your handling code here:
+        if (rezerwacja) {
+            senderRezerwacja.koniecWyboruWycieczki(false, null);
+        } else {
+            senderMenu.koniecEdycjiWycieczek(false); // TODO Dodac funkcje w MenuWindow
+        }
+        dispose();
     }//GEN-LAST:event_btnAnulujActionPerformed
+
+    private void tabelaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelaKeyPressed
+        aktualizujPrzyciski();
+    }//GEN-LAST:event_tabelaKeyPressed
+
+    private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
+        aktualizujPrzyciski();
+    }//GEN-LAST:event_tabelaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -170,10 +217,22 @@ public class WycieczkiWindow extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAnuluj;
     private javax.swing.JButton btnDodaj;
+    private javax.swing.JButton btnEdytuj;
     private javax.swing.JButton btnOk;
-    private javax.swing.JButton btnedytuj;
-    private javax.swing.JButton btnusun;
+    private javax.swing.JButton btnUsun;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables
+
+    private void zaladujDane() {
+        // TODO Wczytac dane do tablicy
+    }
+    
+    private void aktualizujPrzyciski() {
+        btnDodaj.setVisible(!rezerwacja);
+        btnUsun.setVisible(!rezerwacja);
+        btnEdytuj.setVisible(!rezerwacja);
+        btnOk.setEnabled(tabela.getSelectedRow() >= 0);
+    }
+    
 }

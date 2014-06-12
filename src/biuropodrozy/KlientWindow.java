@@ -6,15 +6,12 @@
 
 package biuropodrozy;
 
-import javax.swing.JFrame;
-
 /**
  *
  * @author Paulina
  */
 public class KlientWindow extends javax.swing.JFrame {
 
-    public Klient daneKlienta;
     private RezerwacjaWindow sender;
     
     /**
@@ -24,10 +21,11 @@ public class KlientWindow extends javax.swing.JFrame {
         initComponents();
     }
     
-    public KlientWindow(RezerwacjaWindow newSender) {
+    public KlientWindow(RezerwacjaWindow newSender, Klient daneKlienta) {
         this();
         sender = newSender;
-        zaladujDane();
+        zaladujDane(daneKlienta);
+        setVisible(true);
     }
 
     /**
@@ -200,7 +198,7 @@ public class KlientWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_textRokUrodzeniaActionPerformed
 
     private void btnAnulujActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnulujActionPerformed
-        sender.koniecEdycjiKlienta(false);
+        sender.koniecEdycjiKlienta(false, null);
         dispose();
     }//GEN-LAST:event_btnAnulujActionPerformed
 
@@ -209,8 +207,7 @@ public class KlientWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosed
 
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
-        zapiszDane();
-        sender.koniecEdycjiKlienta(true);
+        sender.koniecEdycjiKlienta(true, zapiszDane());
         dispose();
     }//GEN-LAST:event_btnOkActionPerformed
 
@@ -269,7 +266,7 @@ public class KlientWindow extends javax.swing.JFrame {
     private javax.swing.JTextField textTelefon;
     // End of variables declaration//GEN-END:variables
 
-    private void zaladujDane() {
+    private void zaladujDane(Klient daneKlienta) {
         textImie.setText(daneKlienta.getImie());
         textNazwisko.setText(daneKlienta.getNazwisko());
         textPesel.setText(daneKlienta.getPesel());
@@ -279,7 +276,8 @@ public class KlientWindow extends javax.swing.JFrame {
         textAdres.setText(daneKlienta.getAdres());
     }
     
-    private void zapiszDane() {
+    private Klient zapiszDane() {
+        Klient daneKlienta = new Klient();
         daneKlienta.setImie(textImie.getText());
         daneKlienta.setNazwisko(textNazwisko.getText());
         daneKlienta.setPesel(textPesel.getText());
@@ -291,6 +289,8 @@ public class KlientWindow extends javax.swing.JFrame {
         } catch (NumberFormatException e) { daneKlienta.setRokUr(0); }
         daneKlienta.setMiejscowosc(textMiejscowosc.getText());
         daneKlienta.setAdres(textAdres.getText());
+        
+        return daneKlienta;
     }
 
 
