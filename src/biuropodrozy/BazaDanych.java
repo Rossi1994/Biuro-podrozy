@@ -54,7 +54,8 @@ public final class BazaDanych implements Serializable {
         policzMaxId();
     }
     
-    
+    public Wycieczka getWycieczka(int index) { return wycieczki.get(index); }
+    public Rezerwacja getRezerwacja(int index) { return rezerwacje.get(index); }
     public ArrayList<Wycieczka> getWycieczki() { return (ArrayList<Wycieczka>)wycieczki.clone(); }
     public ArrayList<Rezerwacja> getRezerwacje() { return (ArrayList<Rezerwacja>)rezerwacje.clone(); }
     
