@@ -237,21 +237,7 @@ public class RezerwacjeWindow extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void zaladujDane() {
-        tabela.setModel(new javax.swing.table.DefaultTableModel(
-            bazaDanych.getModelTabeliRezerwacji(),
-            new String [] {
-                "Miejsce", "Data", "Imie", "Nazwisko", "Liczba miejsc"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-
-            @Override
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
+        tabela.setModel(new RezerwacjeTableModel(bazaDanych.getModelTabeliRezerwacji()));
     }
     
     private void aktualizujPrzyciski() {

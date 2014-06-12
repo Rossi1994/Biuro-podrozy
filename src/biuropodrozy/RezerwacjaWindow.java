@@ -275,6 +275,7 @@ public class RezerwacjaWindow extends javax.swing.JFrame {
             rezerwacja.setWycieczka(newWycieczka);
             wyswietlWycieczke();
         }
+        setVisible(true);
     }
 
 }

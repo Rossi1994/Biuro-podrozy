@@ -136,7 +136,7 @@ public final class BazaDanych implements Serializable {
     }
     
     public Object[][] getModelTabeliRezerwacji() {
-        Object[][] data = new Object[rezerwacje.size()][10];
+        Object[][] data = new Object[rezerwacje.size()][5];
         
         for (int i = 0; i < rezerwacje.size(); i++) {
             data[i][0] = rezerwacje.get(i).getWycieczka().getMiejsce();
