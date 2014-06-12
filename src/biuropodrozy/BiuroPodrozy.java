@@ -15,35 +15,29 @@ import java.io.IOException;
 public class BiuroPodrozy {
 
     private static BazaDanych bazaDanych;
-    private final static String sciezkaBazy = "bazaDanych.bd";
-    public static boolean endOfProgram;
+    public final static String sciezkaBazy = "bazaDanych.bd";
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        endOfProgram = false;
+        boolean ready = false;
         try {
             bazaDanych = BazaDanych.wczytaj(sciezkaBazy);
             bazaDanych.policzMaxId();
+            ready = true;
         } catch (IOException | ClassNotFoundException e) {
             bazaDanych = new BazaDanych();
             try {
                 bazaDanych.zapisz(sciezkaBazy);
+                ready = true;
             } catch (IOException e2) {
-                endOfProgram = true;
             }
         }
-        MenuWindow menuWindow = new MenuWindow(bazaDanych);
         
-        while (!endOfProgram) {
-            
+        if ( ready ) {
+            MenuWindow menuWindow = new MenuWindow(bazaDanych);
         }
         
-        try {
-            bazaDanych.zapisz(sciezkaBazy);
-        } catch (IOException ex) {
-            
-        }
     }
     
 }

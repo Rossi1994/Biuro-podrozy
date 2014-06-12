@@ -6,6 +6,8 @@
 
 package biuropodrozy;
 
+import java.io.IOException;
+
 /**
  *
  * @author Paulina
@@ -23,6 +25,7 @@ public class MenuWindow extends javax.swing.JFrame {
     public MenuWindow(BazaDanych newBazaDanych) {
         this();
         bazaDanych = newBazaDanych;
+        setVisible(true);
     }
 
     /**
@@ -107,7 +110,10 @@ public class MenuWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRezerwacjeActionPerformed
 
     private void btnWyjdzActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnWyjdzActionPerformed
-        BiuroPodrozy.endOfProgram = true;
+        try {
+            bazaDanych.zapisz(BiuroPodrozy.sciezkaBazy);
+        } catch (IOException ex) {
+        }
         dispose();
     }//GEN-LAST:event_btnWyjdzActionPerformed
 
