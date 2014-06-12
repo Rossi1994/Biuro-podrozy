@@ -15,7 +15,17 @@ import java.io.Serializable;
 public class Wycieczka implements Serializable {
     
     public Wycieczka() {
-        
+        id = -1;
+        miejsce = "Miejsce";
+        opis = "Opis";
+        cena = 0;
+        kategoria = "Kategoria hotelu";
+        transport = "Transport";
+        wyzywienie = "Wyzywienie";
+        wyjazdZ = "Wyjazd z";
+        data = "01/01/0000";
+        iloscMiejsc = 0;
+        dlugosc = 0;
     }
     
     private Integer id;

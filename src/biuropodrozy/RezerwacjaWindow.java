@@ -34,6 +34,7 @@ public class RezerwacjaWindow extends javax.swing.JFrame {
         bazaDanych = newBazaDanych;
         nowyWpis = true;
         wyswietlWszystko();
+        setVisible(true);
     }
     
     public RezerwacjaWindow(RezerwacjeWindow newSender, BazaDanych newBazaDanych, int idRezerwacji) {
@@ -43,6 +44,7 @@ public class RezerwacjaWindow extends javax.swing.JFrame {
         bazaDanych = newBazaDanych;
         nowyWpis = false;
         wyswietlWszystko();
+        setVisible(true);
     }
 
     /**

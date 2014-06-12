@@ -14,6 +14,13 @@ import java.io.Serializable;
  */
 public class Rezerwacja implements Serializable {
 
+    public Rezerwacja() {
+        klient = new Klient();
+        wycieczka = new Wycieczka();
+        id = -1;
+        liczbaMiejsc = 0;
+    }
+    
     private int id;
     private int liczbaMiejsc;
     private Klient klient;

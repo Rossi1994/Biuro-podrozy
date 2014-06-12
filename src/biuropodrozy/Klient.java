@@ -12,7 +12,17 @@ import java.io.Serializable;
  *
  * @author Paulina
  */
-public class Klient implements Serializable, Cloneable {
+public class Klient implements Serializable {
+    
+    public Klient () {
+        imie = "Imię";
+        nazwisko = "Nazwisko";
+        pesel = "XXXXXXXXXXX";
+        rokUr = 0;
+        telefon = 0;
+        miejscowosc = "Miejscowość";
+        adres = "Adres";
+    }
     
     private String imie;
     private String nazwisko;

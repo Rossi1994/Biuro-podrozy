@@ -185,7 +185,7 @@ public class WycieczkiWindow extends javax.swing.JFrame {
         if (rezerwacja) {
             senderRezerwacja.koniecWyboruWycieczki(true, bazaDanych.getWycieczka(tabela.getSelectedRow()));
         } else {
-            senderMenu.koniecEdycjiWycieczek(true); // TODO Dodac funkcje w MenuWindow
+            senderMenu.koniecEdycjiWycieczek(true);
         }
         dispose();
     }//GEN-LAST:event_btnOkActionPerformed
@@ -194,7 +194,7 @@ public class WycieczkiWindow extends javax.swing.JFrame {
         if (rezerwacja) {
             senderRezerwacja.koniecWyboruWycieczki(false, null);
         } else {
-            senderMenu.koniecEdycjiWycieczek(false); // TODO Dodac funkcje w MenuWindow
+            senderMenu.koniecEdycjiWycieczek(false);
         }
         dispose();
     }//GEN-LAST:event_btnAnulujActionPerformed
