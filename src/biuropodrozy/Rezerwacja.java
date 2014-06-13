@@ -16,7 +16,7 @@ public class Rezerwacja implements Serializable {
 
     public Rezerwacja() {
         klient = new Klient();
-        wycieczka = new Wycieczka();
+        wycieczkaId = -1;
         id = -1;
         liczbaMiejsc = 0;
     }
@@ -24,18 +24,26 @@ public class Rezerwacja implements Serializable {
     private int id;
     private int liczbaMiejsc;
     private Klient klient;
-    private Wycieczka wycieczka;
+    private int wycieczkaId;
     
     public int getId() { return id; }
     public int getLiczbaMiejsc() { return liczbaMiejsc; }
     public Klient getKlient() { return klient; }
-    public Wycieczka getWycieczka() { return wycieczka; }
+    public Integer getWycieczkaId() { return wycieczkaId; }
     
     public void setId(int newId) { id = newId; }
     public void setLiczbaMiejsc(int newLiczbaMiejsc) { liczbaMiejsc = newLiczbaMiejsc; }
     public void setKlient(Klient newKlient) { klient = newKlient; }
-    public void setWycieczka(Wycieczka newWycieczka) { wycieczka = newWycieczka; }
+    public void setWycieczkaId(Integer newWycieczkaId) { wycieczkaId = newWycieczkaId; }
     
-
+    public Wycieczka getWycieczka(BazaDanych bazaDanych) {
+        return bazaDanych.getWycieczkaPrzezId(wycieczkaId);
+    }
+    
+    public void setWycieczka(Wycieczka newWycieczka, BazaDanych bazaDanych) {
+        int index = bazaDanych.getWycieczki().indexOf(newWycieczka);
+        if (index != -1) { wycieczkaId = index; }
+        else wycieczkaId = 0;
+    }
 
 }

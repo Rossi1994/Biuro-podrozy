@@ -266,7 +266,10 @@ public class WycieczkiWindow extends javax.swing.JFrame {
         btnDodaj.setVisible(!rezerwacja);
         btnUsun.setVisible(!rezerwacja);
         btnEdytuj.setVisible(!rezerwacja);
+        btnOk.setVisible(rezerwacja);
         btnOk.setEnabled(tabela.getSelectedRow() >= 0);
+        btnEdytuj.setEnabled(tabela.getSelectedRow() >= 0);
+        btnUsun.setEnabled(tabela.getSelectedRow() >= 0);
     }
     
     public void koniecEdycjiWycieczki(boolean ok, Wycieczka newWycieczka) {

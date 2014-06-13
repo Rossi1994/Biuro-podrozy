@@ -239,6 +239,7 @@ public class WycieczkaWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
+        zapiszDane();
         sender.koniecEdycjiWycieczki(true, wycieczka);
         dispose();
     }//GEN-LAST:event_btnOkActionPerformed

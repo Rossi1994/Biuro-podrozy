@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author onlin_000
+ * @author Paulina
  */
 public class WycieczkaObjazdowa extends Wycieczka implements Serializable {
     

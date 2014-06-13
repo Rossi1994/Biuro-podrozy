@@ -38,10 +38,11 @@ public class RezerwacjaWindow extends javax.swing.JFrame {
     }
     
     public RezerwacjaWindow(RezerwacjeWindow newSender, BazaDanych newBazaDanych, int idRezerwacji) {
+        this();
         sender = newSender;
+        bazaDanych = newBazaDanych;
         rezerwacja = bazaDanych.getRezerwacja(idRezerwacji);
         indexRezerwacji = idRezerwacji;
-        bazaDanych = newBazaDanych;
         nowyWpis = false;
         wyswietlWszystko();
         setVisible(true);
@@ -112,25 +113,26 @@ public class RezerwacjaWindow extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblWycieczka)
-                    .addComponent(jLabel2)
-                    .addComponent(lblKlient))
-                .addGap(69, 69, 69)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnWycieczka, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnKlient, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(spnMiejsca)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblMiejsca)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnOk)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnAnuluj)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblWycieczka)
+                            .addComponent(jLabel2)
+                            .addComponent(lblKlient))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(spnMiejsca)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblMiejsca))
+                            .addComponent(btnWycieczka, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnKlient, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnOk, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnAnuluj, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -175,12 +177,16 @@ public class RezerwacjaWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAnulujActionPerformed
 
     private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
-        if (nowyWpis) {
-            bazaDanych.dodajRezerwacje(rezerwacja);
-        } else {
-            bazaDanych.poprawRezerwacje(indexRezerwacji, rezerwacja);
+        if (rezerwacja.getWycieczkaId() > -1) {
+            rezerwacja.setLiczbaMiejsc((Integer)spnMiejsca.getValue());
+            if (nowyWpis) {
+                bazaDanych.dodajRezerwacje(rezerwacja);
+            } else {
+                bazaDanych.poprawRezerwacje(indexRezerwacji, rezerwacja);
+            }
+            sender.koniecEdycjiRezerwacji(true);
+            dispose();
         }
-        sender.koniecEdycjiRezerwacji(true);
     }//GEN-LAST:event_btnOkActionPerformed
 
     /**
@@ -241,24 +247,27 @@ public class RezerwacjaWindow extends javax.swing.JFrame {
     }
     
     private void wyswietlWycieczke() {
-        lblWycieczka.setText("Wycieczka: " + rezerwacja.getWycieczka().getMiejsce() + " - " + rezerwacja.getWycieczka().getData());
+        if (rezerwacja.getWycieczkaId() > -1) lblWycieczka.setText("Wycieczka: " + rezerwacja.getWycieczka(bazaDanych).getMiejsce() + " - " + rezerwacja.getWycieczka(bazaDanych).getData());
+        else lblWycieczka.setText("Wycieczka: nie wybrano");
     }
     
     private void wyswietlMiejsca() {
         int miejsca = obliczMiejsca();
         lblMiejsca.setText("/" + miejsca);
-        spnMiejsca.setValue(miejsca);
+        spnMiejsca.setValue(rezerwacja.getLiczbaMiejsc());
     }
     
     private int obliczMiejsca() {
-        int liczbaZajetychMiejsc = 0;
-        ArrayList<Rezerwacja> rezerwacje = bazaDanych.getRezerwacje();
-        for (Rezerwacja r : rezerwacje) {
-            if (r.getId() != rezerwacja.getId() && r.getWycieczka().getId() == rezerwacja.getWycieczka().getId()) {
-                liczbaZajetychMiejsc += r.getLiczbaMiejsc();
+        if (rezerwacja.getWycieczkaId() > -1) {
+            int liczbaZajetychMiejsc = 0;
+            ArrayList<Rezerwacja> rezerwacje = bazaDanych.getRezerwacje();
+            for (Rezerwacja r : rezerwacje) {
+                if (r.getId() != rezerwacja.getId() && r.getWycieczkaId() == rezerwacja.getWycieczkaId()) {
+                    liczbaZajetychMiejsc += r.getLiczbaMiejsc();
+                }
             }
-        }
-        return rezerwacja.getWycieczka().getIloscMiejsc() - liczbaZajetychMiejsc;
+            return rezerwacja.getWycieczka(bazaDanych).getIloscMiejsc() - liczbaZajetychMiejsc;
+        } else return 0;
     }
 
 
@@ -272,8 +281,9 @@ public class RezerwacjaWindow extends javax.swing.JFrame {
     
     public void koniecWyboruWycieczki(boolean ok, Wycieczka newWycieczka) {
         if (ok) {
-            rezerwacja.setWycieczka(newWycieczka);
+            rezerwacja.setWycieczkaId(newWycieczka.getId());
             wyswietlWycieczke();
+            wyswietlMiejsca();
         }
         setVisible(true);
     }

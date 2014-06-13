@@ -14,11 +14,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Objects;
 
 /**
  *
- * @author onlin_000
+ * @author Paulina
  */
 public final class BazaDanych implements Serializable {
     
@@ -50,13 +49,15 @@ public final class BazaDanych implements Serializable {
     public void usunWycieczke(Wycieczka delWycieczka) { usunWycieczke(wycieczki.indexOf(delWycieczka)); }
     
     public void usunWycieczke(int indexWycieczki) {
-        Wycieczka wycieczka = getWycieczka(indexWycieczki);
-        wycieczki.remove(indexWycieczki);
-        for (Rezerwacja r : rezerwacje) {
-            if (Objects.equals(r.getWycieczka(), wycieczka)) {
-                usunRezerwacje(r);
+        int idWycieczki = getWycieczka(indexWycieczki).getId();
+        int i = rezerwacje.size() - 1;
+        while (i >= 0) {
+            if (rezerwacje.get(i).getWycieczkaId() == idWycieczki) {
+                usunRezerwacje(i);
             }
+            i--;
         }
+        wycieczki.remove(indexWycieczki);
     }
     
     public void usunRezerwacje(Rezerwacja delRezerwacja) { usunRezerwacje(rezerwacje.indexOf(delRezerwacja)); }
@@ -82,7 +83,7 @@ public final class BazaDanych implements Serializable {
         Rezerwacja edytowanaRezerwacja = rezerwacje.get(index);
         edytowanaRezerwacja.setKlient(newRezerwacja.getKlient());
         edytowanaRezerwacja.setLiczbaMiejsc(newRezerwacja.getLiczbaMiejsc());
-        edytowanaRezerwacja.setWycieczka(newRezerwacja.getWycieczka());
+        edytowanaRezerwacja.setWycieczkaId(newRezerwacja.getWycieczkaId());
     }
     
     public void zapisz(String sciezka) throws FileNotFoundException, IOException {
@@ -99,10 +100,20 @@ public final class BazaDanych implements Serializable {
         return (BazaDanych)os.readObject();
     }
     
-    public Wycieczka getWycieczka(int index) { return wycieczki.get(index); }
-    public Rezerwacja getRezerwacja(int index) { return rezerwacje.get(index); }
-    public ArrayList<Wycieczka> getWycieczki() { return (ArrayList<Wycieczka>)wycieczki.clone(); }
-    public ArrayList<Rezerwacja> getRezerwacje() { return (ArrayList<Rezerwacja>)rezerwacje.clone(); }
+    public Wycieczka getWycieczka(int index) {
+        return wycieczki.get(index);
+    }
+    public Wycieczka getWycieczkaPrzezId(int id) {
+        for (Wycieczka w : wycieczki) {
+            if (w.getId() == id) return w;
+        }
+        return getWycieczka(0);
+    }
+    public Rezerwacja getRezerwacja(int index) {
+        return rezerwacje.get(index);
+    }
+    public ArrayList<Wycieczka> getWycieczki() { return wycieczki; }
+    public ArrayList<Rezerwacja> getRezerwacje() { return rezerwacje; }
     
     public void policzMaxId() {
         maxWycieczkaId = -1;
@@ -139,8 +150,8 @@ public final class BazaDanych implements Serializable {
         Object[][] data = new Object[rezerwacje.size()][5];
         
         for (int i = 0; i < rezerwacje.size(); i++) {
-            data[i][0] = rezerwacje.get(i).getWycieczka().getMiejsce();
-            data[i][1] = rezerwacje.get(i).getWycieczka().getData();
+            data[i][0] = rezerwacje.get(i).getWycieczka(this).getMiejsce();
+            data[i][1] = rezerwacje.get(i).getWycieczka(this).getData();
             data[i][2] = rezerwacje.get(i).getKlient().getImie();
             data[i][3] = rezerwacje.get(i).getKlient().getNazwisko();
             data[i][4] = rezerwacje.get(i).getLiczbaMiejsc();

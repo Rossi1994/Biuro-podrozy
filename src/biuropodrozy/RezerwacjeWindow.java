@@ -14,7 +14,6 @@ package biuropodrozy;
 public class RezerwacjeWindow extends javax.swing.JFrame {
 
     private MenuWindow sender;
-    boolean edycja;
     int ostatniIndex;
     
     BazaDanych bazaDanych;
@@ -47,7 +46,6 @@ public class RezerwacjeWindow extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tabela = new javax.swing.JTable();
-        btnAnuluj = new javax.swing.JButton();
         btnOk = new javax.swing.JButton();
         btnEdytuj = new javax.swing.JButton();
         btnUsun = new javax.swing.JButton();
@@ -80,14 +78,7 @@ public class RezerwacjeWindow extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tabela);
 
-        btnAnuluj.setText("Anuluj");
-        btnAnuluj.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAnulujActionPerformed(evt);
-            }
-        });
-
-        btnOk.setText("Ok");
+        btnOk.setText("Wyjdź");
         btnOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnOkActionPerformed(evt);
@@ -123,14 +114,12 @@ public class RezerwacjeWindow extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnDodaj)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnUsun)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnEdytuj)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnOk)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnAnuluj)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -139,7 +128,6 @@ public class RezerwacjeWindow extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAnuluj)
                     .addComponent(btnOk)
                     .addComponent(btnEdytuj)
                     .addComponent(btnUsun)
@@ -162,7 +150,6 @@ public class RezerwacjeWindow extends javax.swing.JFrame {
         if (tabela.getSelectedRow() >= 0) {
             RezerwacjaWindow rezerwacjaWindow = new RezerwacjaWindow(this, bazaDanych, tabela.getSelectedRow());
             ostatniIndex = tabela.getSelectedRow();
-            edycja = true;
             setVisible(false);
         }
     }//GEN-LAST:event_btnEdytujActionPerformed
@@ -171,11 +158,6 @@ public class RezerwacjeWindow extends javax.swing.JFrame {
         sender.koniecEdycjiRezerwacji(true);
         dispose();
     }//GEN-LAST:event_btnOkActionPerformed
-
-    private void btnAnulujActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnulujActionPerformed
-        sender.koniecEdycjiRezerwacji(false);
-        dispose();
-    }//GEN-LAST:event_btnAnulujActionPerformed
 
     private void tabelaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelaKeyPressed
         aktualizujPrzyciski();
@@ -187,7 +169,6 @@ public class RezerwacjeWindow extends javax.swing.JFrame {
 
     private void btnDodajActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDodajActionPerformed
         RezerwacjaWindow rezerwacjaWindow = new RezerwacjaWindow(this, bazaDanych);
-        edycja = false;
         setVisible(false);
     }//GEN-LAST:event_btnDodajActionPerformed
 
@@ -227,7 +208,6 @@ public class RezerwacjeWindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAnuluj;
     private javax.swing.JButton btnDodaj;
     private javax.swing.JButton btnEdytuj;
     private javax.swing.JButton btnOk;
@@ -241,7 +221,8 @@ public class RezerwacjeWindow extends javax.swing.JFrame {
     }
     
     private void aktualizujPrzyciski() {
-        btnOk.setEnabled(tabela.getSelectedRow() >= 0);
+        btnEdytuj.setEnabled(tabela.getSelectedRow() >= 0);
+        btnUsun.setEnabled(tabela.getSelectedRow() >= 0);
     }
     
     public void koniecEdycjiRezerwacji(boolean ok) {
